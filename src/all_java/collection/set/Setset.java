@@ -21,7 +21,7 @@ public class Setset {
         System.out.print("Set output without the duplicates"); 
         System.out.println(hash_Set); 
   
-        // Set deonstration using TreeSet 
+        // Set using TreeSet 
         Set<String> tree_Set = new TreeSet<String>(hash_Set); 
         System.out.print("Sorted Set after passing into TreeSet"); 
         System.out.println(tree_Set); 

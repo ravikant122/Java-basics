@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.stream.*;
 
 public class SStream {
-
-	
 	public static void main(String[] args) throws IOException {
 		
 		// stream pipeline = source -> intermediate operations -> terminal
@@ -17,6 +15,39 @@ public class SStream {
 		// streams can be created from Collections, ints, longs, doubles, arrays, lines of file
 		// intermediate operations can be filter, map, sort etc. -- all these return a stream 
 		// terminal may be forEach, collect, reduce etc. -- all these return either void or non-stream result
+		// stream is lazy means it won't produce any result if it doesn't have any terminal operation
+		
+		/*
+			how stream works internally
+			
+			if we use .filter().map().peek() (peek to see stream in between operations)
+			then its not like all elements first go through filter first then map then peek
+			elements goes into all these operation one by one means first elements will go through
+			filter then map then peek then 2nd will come
+			
+			there are two types of operations
+			1. stateless - no need to know about other elements - like filter, map
+			2. stateful - need to know about all elements - like sorted
+			
+			so if we use .filter().sorted().map() - then first all elements go through filter
+			then sorted then map
+			instead we should write like, filter.map.sorted - now elements go through filter then map
+			then all elements in sorted
+			
+			
+			parallel stream - first it will divide the given collection into chunks and then process
+			each chunk using different threads then it combines the result of all the chunks
+			it always divide bigger chunks into half(low, mid, half) - trySplit is the method it calls
+			
+			
+			type of operations
+			1. convert to stream - Arrays.stream(arr), someCollections.stream(), Stream.of(...elements)
+				StreamBuilder.add(element).add(element)
+			
+			2. internal operations - filter, map, peek, flatMap, sorted, distinct, skip
+			3. terminal operations - collect, forEach, reduce, sum, max, min, average, count, findFirst,
+				findAny, anyMatch, allMatch, noneMatch
+		 */
 		
 		// 1. Integer Stream
 		IntStream	

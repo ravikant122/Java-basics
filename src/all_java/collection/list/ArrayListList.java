@@ -1,22 +1,26 @@
 package all_java.collection.list;
 
-import java.util.*; // module for ArrayList
+// module for ArrayList
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ArrayListList {
 	public static void print(Integer n) {
 		System.out.println("Integer is " + n);
 	}
 
-	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
-		
-		// List = interface 
+		// List = interface, ArrayList = class that implements the List interface
 		List<Integer> l1 = new ArrayList<Integer>(); 
         l1.add(0, 1); // adds 1 at 0 index 
         l1.add(1, 2); // adds 2 at 1 index 
         System.out.println(l1);
 		
-		// AbstractList = interface -- ArrayList & LinkedList = classes -- use these
+        // AbstractList = interface -- ArrayList & LinkedList = classes -- use these
 		AbstractList<String> list = new LinkedList<String>(); 
 		  
         // Use add() method to add elements in the list 
@@ -33,8 +37,8 @@ public class ArrayListList {
 		// ArrayList is initialized by a size,
 		// -- however the size can increase if collection grows or shrunk if objects are removed from the collection
 		// type of data != primtive(int / float ) -- it should be Wrapper class(Integer / String)
-		// dynamic allocation -- due to variable size at runtime -- we can create empty list inialization
-
+		// dynamic allocation -- due to variable size at runtime -- we can create empty list inialization        
+          
 		// creation methods -- ArrayList<Type> name = new ArrayList<SameType>
 		int n = 13;
 		// 1. empty list

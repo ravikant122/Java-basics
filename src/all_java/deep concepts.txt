@@ -1,0 +1,67 @@
+string constant pool - a cache is heap memory for strings
+whenever we create a string, it first checks if the string already exists in string constant pool, if yes then
+it returns its reference else create a new string in string constant pool and returns reference to it
+
+String s1 = "hello"
+String s2 = "hello"
+both these will point out to same reference which will be in string constant pool
+
+but if we create string using concatenation or new keyword or string builder/buffer, it creates the string in the heap
+String s3 = new String("hello") -> this will have diff ref than s1/s2
+s3 = s3 + " ravi"  -> a new ref in heap -  a string is created
+
+Note: strings are immutable in java, if a string is modified means a new string is created in heap and old one will be 
+removed in GC in some time.
+
+
+Java memory management
+there are five components of java memory
+1. Heap - here we keep object's memory
+2. method area - its a part of heap - in this we keep class/interface structure, static variables, final data
+3. call stack - methods call stack - we store object's references and primitive type variables(int,float)
+4. native method call stack - native methods are written in C, so we need a call stack for those
+5. program counter registers - for each thread, we need program counters so that we can find the next line
+	to execute
+
+Heap -  there are two parts of this - young space, old space
+every newly created object goes in young space and when young space gets full, we start garbage collector
+and transfer the alive object's memory in old space - the GC works fast in young space
+and when old space gets full, we run GC in old
+
+Object Allocation - before assigning memory to an object, we determine its size, and if size is small
+then we give a small chunk in young space of heap to its thread - Thread local area(TLA)
+if object is big, then we allocate its memory in old space
+the size is small or large depends on JVM version, heap size, GC strategy to clean, and the platform
+
+
+Garbage collection -  frees up the memory which is unreachable
+totally depends on JVM when it runs the GC - generally runs when young/old space of heap gets full
+
+Running GC is expensive, when it runs then all thread gets paused
+these are the strategies we can use
+1. mark and sweep - first we mark the memory which is unreachable and the clear that memory
+2. serial GC - only one thread is used
+3. concurrent and parallel mark and sweep - multiple threds of GC which can run in parallel with process threads
+4. compactation - after we sweep(free) the memory and it may happen that some chunks can be in-between the
+	objects and that can be small free chunk but we can't allocate them to any object
+	so we move the allocated memory at one place, so that free memory(now a big chunk) can be allocated
+
+
+JVM Overview
+.java file -(goes through javac compiler)-> byte code -(JIT compiler)-> machine code
+
+byte code can be run on any machine, we just need JVM - that's why java is platfrom independent
+but JVM is platfrom dependent
+
+JRE = java runtime env - JVM + classes(whole Java classes like java.lang, java.util)
+JDK = JRE + (compiler(javac) + debugger) etc.
+
+(pending)
+JVM Architecture
+collections API implementations like ArrayList, HashMap
+Atomic Variables
+ReentrantLock
+Fork-Join Framework
+CompletableFuture
+Runnable vs Callable
+Reflections

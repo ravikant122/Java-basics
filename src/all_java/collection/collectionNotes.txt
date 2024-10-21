@@ -1,0 +1,134 @@
+ArrayList
+1.  during add(), addAll() -> if the upcoming size(current size + new element/s size) is greater than
+	capacity, then the capacity gets increased by 50% of the current size
+2.  it uses Iterator or ListIterator to traverse the elements, and in between traversing if we change
+	any element then it will throw ConcurrentModificationException and traversing stops
+	this is called fail-fast - means fail as soon as any element changes
+3.  it is asynchronized - means multiple threads can read/write at the same time
+	that's why its fast than vector
+	if we wan to make ArrayList sync, then we should use Collections.synchronizedList(new ArrayList<>())
+
+Vector
+1.  capacity gets increased by double
+2.  its fail-fast - same as ArrayList
+3.	it is synchronized - every operation on vector in synchronized - that's why its slow
+
+LinkedList
+1.	same as any linkedlist - there are nodes, can't access elements through index - use iterator
+2.	no overhead of increasing capacity like ArrayList/Vector
+
+
+fail-fast v/s fail-safe
+	in fail-fast, we iterate on original Collection and if we change any element during iteration,
+	it throws ConcurrentModificationException - it happens in ArrayList, vector etc.
+	no extra memory needed in this.
+	
+	in fail-safe, we iterate on a cloned copy of original collection
+	and it won't throws ConcurrentModificationException if we change any element during iteration
+	it happens in ConcurrentHashmap, CopyOnWriteArrayList etc(classes in java.util.Concurrent package)
+	extra memory is needed in this
+	
+
+Cloneable interface
+	if you want to clone an object, you have to implements Cloneable interface and then override
+	Object.clone method with public access modifier and clone your object(should deep clone here)
+	
+	you can only call clone() if you've implemented Cloneable
+	if a class is not implements Cloneable and calls clone() - then it throws CloneNotSupportException
+	
+	
+HashMap - internal working - its a array of linklist/red-black tree
+1. capacity/buckets = size of array
+2. load factor(between 0 to 1) - tells the percentage of elements after which we increase the capacity by x2
+3. thresold = capacity * loadfactor - so if loadfactor = .75 and capacity = 16
+	means thresold = 12, means after 12 elements, we gonna increase its size
+	we increase capacity in terms of 2's power - default is 16, then 32, then 64
+
+Each Node of linkedlist contains
+1. int hash - hash value of key
+2. K key
+3. V value;
+4. Node next; -> keeping next node address
+
+When we put(K key, V value) - then we first find hash for key - we find it using key's hashcode
+and then we find index of that hash so that we can insert between 0 to size-1
+
+then we go to that index of buckets and append this node at the end of linked list
+if node with same key is already present, then we will update that node
+
+Time complexity can be O(1) but that depends on how good we use all the buckets so that linkedlist size in each
+buckets would be at low as possible - and we can do this by making a good hash function which is possible
+by make a good hashCode function for the Key
+
+when we reach a index in buckets array then we got a linked list and searching in a linkedlist can be O(n)
+to avoid this, we can use red-black tree instead of linked list which gives O(log(n)) in all operations
+Java's hashmap uses TreeMap which is implemented using red-black tree
+
+when we increase capacity(resize function) - 
+1. first we create another array of double capacity
+2. we iterate all nodes in whole hashMap, then we first calculate their index(index is gonna change becaues
+index is calculate as (capacity & hash(key) -  as capacity is changed, the index can also change
+3. so elements can be at new index
+4. that's why it can't preserve order becuase after resize, the order of elements has changed
+
+Implementation of HashMap using Red-black Tree
+<pending>
+
+
+Difference between HashMap and HashTable
+	HashMap is asynchronized means multiple threads can access it at the same time - this is good for read but 
+	not for write, as HashMap is fail-fast, if one thread is iterating and other thread has updated some
+	other element then we will get ConcurrentModificationException
+	
+	So Either use HashTable or use ConcurrentHashMap or Collections.synchronizedMap which is synchronized
+
+
+LinkedHashMap - same as HashMap but it keeps the order of insertion
+	it does this by keeping two pointers in every node - prev and next, and they get filled when we put
+	elements in this map
+	Java uses doubly linkedlist so that we can traverse in both direction
+	
+	
+Hashtable - its a array/buckets of list of nodes - there's a no treeMap/red-black-tree
+the capacity increase, load factor, thresold etc. - all function same as hashmap
+
+but when collision happends, we just add a node at the front of the list, so now first node at some index
+is the one which came latest
+
+- slower than hashmap because of sequential linked list and also because of synchornized
+
+
+HashSet - internally uses hashMap literally, and in place of value it pass a obj(new Object())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	

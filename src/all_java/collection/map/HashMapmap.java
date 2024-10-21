@@ -7,7 +7,6 @@ import java.util.Map;
 public class HashMapmap {
 	@SuppressWarnings("rawtypes")
 	public static void main(String[] args) {
-		
 		// maps = key-value pair elements 
 		// keys can't be duplicate but values can
 		// interfaces -- Map / SortedMap

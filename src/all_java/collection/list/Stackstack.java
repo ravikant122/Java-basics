@@ -5,6 +5,7 @@ import java.util.Stack;
 public class Stackstack {
 	public static void main(String[] args) {
 		
+		// uses vector internally
 		Stack<Integer> st = new Stack<Integer>();
 
 		// methods
